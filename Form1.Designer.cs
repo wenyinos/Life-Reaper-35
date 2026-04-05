@@ -145,7 +145,7 @@ namespace Life_Reaper
             lblCountdownLabel.Name = "lblCountdownLabel";
             lblCountdownLabel.Size = new Size(200, 26);
             lblCountdownLabel.TabIndex = 2;
-            lblCountdownLabel.Text = "价格将在以下时间后上涨：";
+            lblCountdownLabel.Text = "生命将在以下时间更快流逝：";
             // 
             // lblCountdown
             // 

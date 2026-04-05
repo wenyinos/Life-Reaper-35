@@ -5,10 +5,12 @@
 ## 功能特性
 
 - 复古勒索软件风格界面设计
-- 实时倒计时器
-- 比特币支付模拟
-- 无边框、置顶窗口
-- 红灰配色方案
+- 59 分 59 秒倒计时器，实时显示
+- 每 59 秒自动放大字体强调效果
+- 自定义标题栏（最小化、关闭按钮）
+- 支持拖拽移动窗口
+- 始终置顶显示
+- 全中文界面
 
 ## 环境要求
 
@@ -33,15 +35,32 @@ dotnet build
 dotnet run
 ```
 
+### 发布便携版
+
+```bash
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishReadyToRun=true --output publish
+```
+
+发布后的 `publish/Life Reaper.exe` 可直接运行，无需安装 .NET 运行时。
+
+### 构建安装包
+
+1. 安装 [Inno Setup 6](https://jrsoftware.org/isdl.php)
+2. 双击运行 `build-installer.bat`
+3. 安装包将生成在 `installer/output/LifeReaper-Setup.exe`
+
 ## 项目结构
 
 ```
 Life Reaper/
-├── Form1.cs              # 主窗体逻辑
-├── Form1.Designer.cs     # 窗体界面设计
-├── Program.cs            # 应用程序入口
-├── Life Reaper.csproj    # 项目配置文件
-└── Life Reaper.slnx      # 解决方案文件
+├── Form1.cs                   # 主窗体逻辑
+├── Form1.Designer.cs          # 窗体界面设计
+├── Program.cs                 # 应用程序入口
+├── Life Reaper.csproj         # 项目配置文件
+├── Life Reaper.slnx           # 解决方案文件
+├── build-installer.bat        # 一键构建安装包脚本
+└── installer/
+    └── setup.iss              # Inno Setup 安装包脚本
 ```
 
 ## 开源许可证
