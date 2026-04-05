@@ -6,13 +6,15 @@ namespace Life_Reaper
         private Point mouseOffset;
         private int secondsElapsed;
         private bool isEmphasized;
+        private Point originalLocation;
 
         public Form1()
         {
             InitializeComponent();
-            timeLeft = TimeSpan.FromMinutes(59).Add(TimeSpan.FromSeconds(59));
+            timeLeft = TimeSpan.FromMinutes(9).Add(TimeSpan.FromSeconds(59));
             secondsElapsed = 0;
             isEmphasized = false;
+            originalLocation = Location;
             UpdateCountdownDisplay();
         }
 
@@ -42,18 +44,34 @@ namespace Life_Reaper
             isEmphasized = true;
             lblCountdown.Font = new Font("Consolas", 42F, FontStyle.Bold, GraphicsUnit.Point);
             lblCountdown.ForeColor = Color.FromArgb(255, 0, 0);
+            ShakeWindow();
 
             System.Windows.Forms.Timer resetTimer = new System.Windows.Forms.Timer();
-            resetTimer.Interval = 1000;
+            resetTimer.Interval = 1500;
             resetTimer.Tick += (s, e) =>
             {
                 lblCountdown.Font = new Font("Consolas", 32F, FontStyle.Bold, GraphicsUnit.Point);
                 lblCountdown.ForeColor = Color.FromArgb(192, 0, 0);
+                Location = originalLocation;
                 isEmphasized = false;
                 ((System.Windows.Forms.Timer)s!).Stop();
                 ((System.Windows.Forms.Timer)s!).Dispose();
             };
             resetTimer.Start();
+        }
+
+        private async void ShakeWindow()
+        {
+            int shakeCount = 10;
+            int shakeDistance = 15;
+            int delay = 50;
+
+            for (int i = 0; i < shakeCount; i++)
+            {
+                int offsetX = (i % 2 == 0) ? shakeDistance : -shakeDistance;
+                Location = new Point(originalLocation.X + offsetX, originalLocation.Y);
+                await Task.Delay(delay);
+            }
         }
 
         private void UpdateCountdownDisplay()
@@ -100,6 +118,7 @@ namespace Life_Reaper
                 Point mousePos = Control.MousePosition;
                 mousePos.Offset(mouseOffset.X, mouseOffset.Y);
                 Location = mousePos;
+                originalLocation = mousePos;
             }
         }
     }
