@@ -2,12 +2,12 @@ namespace Life_Reaper
 {
     public class WarningForm : Form
     {
-        private Panel panelTitleBar;
-        private Label lblTitle;
-        private Button btnClose;
-        private Panel panelContent;
-        private Label lblWarning;
-        private Button btnConfirm;
+        private Panel? panelTitleBar;
+        private Label? lblTitle;
+        private Button? btnClose;
+        private Panel? panelContent;
+        private Label? lblWarning;
+        private Button? btnConfirm;
         private Point mouseOffset;
 
         public WarningForm()

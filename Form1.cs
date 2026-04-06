@@ -35,7 +35,7 @@ namespace Life_Reaper
             {
                 timerCountdown.Stop();
                 lblCountdown.Text = "00:00:00";
-                MessageBox.Show("时间已到！你的生命已贡献给长者。", "拖出去续了", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CustomMessageBox.Show(this, "时间已到！你的生命已贡献给长者。", "拖出去续了");
             }
         }
 
@@ -77,22 +77,22 @@ namespace Life_Reaper
         private void UpdateCountdownDisplay()
         {
             lblCountdown.Text = timeLeft.ToString(@"hh\:mm\:ss");
-            lblTimer.Text = $"免费续命剩余时间：{timeLeft.ToString(@"hh\:mm\:ss")}";
+            lblTimer.Text = $"你的寿命剩余时间：{timeLeft.ToString(@"hh\:mm\:ss")}";
         }
 
         private void BtnDecrypt_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("没有背诵三个代表。请先背诵一遍。", "续命失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            CustomMessageBox.Show(this, "没有背诵三个代表。请先背诵一遍。", "续命失败");
         }
 
         private void BtnPay_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("请发送 0.05 BTC 到上方地址。\n付款后，点击\"检查付款\"进行验证。", "付款说明", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CustomMessageBox.Show(this, "请问你是否确认续命？\n确认后，点击\"检查续命\"进行验证。", "续命说明");
         }
 
         private void BtnCheckPayment_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("尚未检测到付款。请等待区块链确认。", "检查付款", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CustomMessageBox.Show(this, "你已成功续命。", "+1s");
         }
 
         private void BtnMinimize_Click(object? sender, EventArgs e)
