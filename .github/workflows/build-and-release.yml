@@ -23,9 +23,9 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build project (Release x86)
+    - name: Build project (Release)
       run: |
-        msbuild "Life Reaper.csproj" /p:Configuration=Release /p:Platform=x86 /p:TargetFrameworkVersion=v3.5
+        msbuild "Life Reaper.csproj" /p:Configuration=Release /p:TargetFrameworkVersion=v3.5
 
     - name: Create release folder
       run: |
