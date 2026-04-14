@@ -1,11 +1,23 @@
 using System;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Life_Reaper
 {
     public partial class Form1 : Form
     {
+        private static Icon LoadIconFromResource()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream("favicon.ico"))
+            {
+                if (stream != null)
+                    return new Icon(stream);
+            }
+            return null;
+        }
         private TimeSpan timeLeft;
         private Point mouseOffset;
         private int secondsElapsed;
