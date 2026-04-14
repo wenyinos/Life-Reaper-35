@@ -9,6 +9,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: read
+
 env:
   PROJECT_NAME: LifeReaper
 
