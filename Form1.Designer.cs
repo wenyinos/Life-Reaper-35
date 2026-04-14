@@ -97,7 +97,7 @@ namespace Life_Reaper
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold);
+            lblTitle.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.White;
             lblTitle.Location = new Point(15, 8);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
@@ -133,7 +133,7 @@ namespace Life_Reaper
             // lblWarning
             // 
             lblWarning.AutoSize = true;
-            lblWarning.Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Bold);
+            lblWarning.Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
             lblWarning.ForeColor = Color.FromArgb(192, 0, 0);
             lblWarning.Location = new Point(39, 27);
             lblWarning.Margin = new Padding(4, 0, 4, 0);
@@ -145,7 +145,7 @@ namespace Life_Reaper
             // lblQuestion1
             // 
             lblQuestion1.AutoSize = true;
-            lblQuestion1.Font = new Font("Microsoft YaHei UI", 16F, FontStyle.Bold);
+            lblQuestion1.Font = new Font("Microsoft YaHei UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             lblQuestion1.ForeColor = Color.FromArgb(192, 0, 0);
             lblQuestion1.Location = new Point(39, 93);
             lblQuestion1.Margin = new Padding(4, 0, 4, 0);
@@ -156,7 +156,7 @@ namespace Life_Reaper
             // 
             // lblDescription1
             // 
-            lblDescription1.Font = new Font("Microsoft YaHei UI", 11F);
+            lblDescription1.Font = new Font("Microsoft YaHei UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblDescription1.ForeColor = Color.FromArgb(50, 50, 50);
             lblDescription1.Location = new Point(39, 133);
             lblDescription1.Margin = new Padding(4, 0, 4, 0);
@@ -168,7 +168,7 @@ namespace Life_Reaper
             // lblQuestion2
             // 
             lblQuestion2.AutoSize = true;
-            lblQuestion2.Font = new Font("Microsoft YaHei UI", 16F, FontStyle.Bold);
+            lblQuestion2.Font = new Font("Microsoft YaHei UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             lblQuestion2.ForeColor = Color.FromArgb(192, 0, 0);
             lblQuestion2.Location = new Point(39, 180);
             lblQuestion2.Margin = new Padding(4, 0, 4, 0);
@@ -179,7 +179,7 @@ namespace Life_Reaper
             // 
             // lblDescription2
             // 
-            lblDescription2.Font = new Font("Microsoft YaHei UI", 11F);
+            lblDescription2.Font = new Font("Microsoft YaHei UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblDescription2.ForeColor = Color.FromArgb(50, 50, 50);
             lblDescription2.Location = new Point(39, 220);
             lblDescription2.Margin = new Padding(4, 0, 4, 0);
@@ -191,7 +191,7 @@ namespace Life_Reaper
             // lblCountdownLabel
             // 
             lblCountdownLabel.AutoSize = true;
-            lblCountdownLabel.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold);
+            lblCountdownLabel.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             lblCountdownLabel.ForeColor = Color.FromArgb(192, 0, 0);
             lblCountdownLabel.Location = new Point(39, 293);
             lblCountdownLabel.Margin = new Padding(4, 0, 4, 0);
@@ -203,7 +203,7 @@ namespace Life_Reaper
             // lblCountdown
             // 
             lblCountdown.AutoSize = true;
-            lblCountdown.Font = new Font("Consolas", 32F, FontStyle.Bold);
+            lblCountdown.Font = new Font("Consolas", 32F, FontStyle.Bold, GraphicsUnit.Point);
             lblCountdown.ForeColor = Color.FromArgb(192, 0, 0);
             lblCountdown.Location = new Point(39, 340);
             lblCountdown.Margin = new Padding(4, 0, 4, 0);
@@ -215,7 +215,7 @@ namespace Life_Reaper
             // lblInstructions
             // 
             lblInstructions.AutoSize = true;
-            lblInstructions.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            lblInstructions.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblInstructions.ForeColor = Color.FromArgb(50, 50, 50);
             lblInstructions.Location = new Point(39, 433);
             lblInstructions.Margin = new Padding(4, 0, 4, 0);
@@ -226,7 +226,7 @@ namespace Life_Reaper
             // 
             // lblBtcAddress
             // 
-            lblBtcAddress.Font = new Font("Microsoft YaHei UI", 10F);
+            lblBtcAddress.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblBtcAddress.ForeColor = Color.FromArgb(0, 100, 200);
             lblBtcAddress.Location = new Point(39, 473);
             lblBtcAddress.Margin = new Padding(4, 0, 4, 0);
@@ -238,7 +238,7 @@ namespace Life_Reaper
             // lblBtcAmount
             // 
             lblBtcAmount.AutoSize = true;
-            lblBtcAmount.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold);
+            lblBtcAmount.Font = new Font("Microsoft YaHei UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             lblBtcAmount.ForeColor = Color.FromArgb(192, 0, 0);
             lblBtcAmount.Location = new Point(39, 520);
             lblBtcAmount.Margin = new Padding(4, 0, 4, 0);
@@ -252,7 +252,7 @@ namespace Life_Reaper
             btnDecrypt.BackColor = Color.FromArgb(192, 0, 0);
             btnDecrypt.FlatAppearance.BorderSize = 0;
             btnDecrypt.FlatStyle = FlatStyle.Flat;
-            btnDecrypt.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            btnDecrypt.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnDecrypt.ForeColor = Color.White;
             btnDecrypt.Location = new Point(39, 587);
             btnDecrypt.Margin = new Padding(4, 4, 4, 4);
@@ -268,7 +268,7 @@ namespace Life_Reaper
             btnPay.BackColor = Color.FromArgb(0, 100, 200);
             btnPay.FlatAppearance.BorderSize = 0;
             btnPay.FlatStyle = FlatStyle.Flat;
-            btnPay.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            btnPay.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPay.ForeColor = Color.White;
             btnPay.Location = new Point(334, 587);
             btnPay.Margin = new Padding(4, 4, 4, 4);
@@ -284,7 +284,7 @@ namespace Life_Reaper
             btnCheckPayment.BackColor = Color.FromArgb(80, 80, 80);
             btnCheckPayment.FlatAppearance.BorderSize = 0;
             btnCheckPayment.FlatStyle = FlatStyle.Flat;
-            btnCheckPayment.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            btnCheckPayment.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnCheckPayment.ForeColor = Color.White;
             btnCheckPayment.Location = new Point(630, 587);
             btnCheckPayment.Margin = new Padding(4, 4, 4, 4);
@@ -298,7 +298,7 @@ namespace Life_Reaper
             // lblTimer
             // 
             lblTimer.AutoSize = true;
-            lblTimer.Font = new Font("Microsoft YaHei UI", 10F);
+            lblTimer.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTimer.ForeColor = Color.FromArgb(100, 100, 100);
             lblTimer.Location = new Point(39, 673);
             lblTimer.Margin = new Padding(4, 0, 4, 0);
@@ -316,7 +316,7 @@ namespace Life_Reaper
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1003, 747);
             Controls.Add(panelContent);
             Controls.Add(panelTitleBar);
