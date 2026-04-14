@@ -326,6 +326,7 @@ namespace Life_Reaper
             StartPosition = FormStartPosition.CenterScreen;
             Text = "续命 26.08.17";
             TopMost = true;
+            Icon = new System.Drawing.Icon("favicon.ico");
             panelTitleBar.ResumeLayout(false);
             panelTitleBar.PerformLayout();
             panelContent.ResumeLayout(false);
