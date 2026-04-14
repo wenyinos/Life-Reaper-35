@@ -9,119 +9,56 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
-# 设置权限
-permissions:
-  contents: write
-  packages: write
-
 env:
-  DOTNET_VERSION: '10.0.x'
-  APP_NAME: "Life Reaper"
-  OUTPUT_DIR: installer/output
+  PROJECT_NAME: LifeReaper
 
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
-    - name: 检出代码
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: 设置 .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-    - name: 还原依赖
-      run: dotnet restore
-
-    - name: 编译
-      run: dotnet build --configuration Release --no-restore
-
-    - name: 运行测试(如果有)
-      run: dotnet test --no-build --verbosity normal
-      continue-on-error: true
-
-    - name: 发布自包含应用
+    - name: Build project (Release x86)
       run: |
-        dotnet publish -c Release -r win-x64 --self-contained true `
-          -p:PublishSingleFile=true `
-          -p:IncludeNativeLibrariesForSelfExtract=true `
-          -p:PublishReadyToRun=true `
-          --output publish
+        msbuild "Life Reaper.csproj" /p:Configuration=Release /p:Platform=x86 /p:TargetFrameworkVersion=v3.5
 
-    - name: 上传发布文件
+    - name: Create release folder
+      run: |
+        mkdir release
+        Copy-Item "bin\Release\${{ env.PROJECT_NAME }}.exe" -Destination "release\${{ env.PROJECT_NAME }}.exe"
+        Copy-Item "bin\Release\${{ env.PROJECT_NAME }}.pdb" -Destination "release\" -ErrorAction SilentlyContinue
+        Copy-Item "bin\Release\*.config" -Destination "release\" -ErrorAction SilentlyContinue
+        Copy-Item "README.md" -Destination "release\" -ErrorAction SilentlyContinue
+        Copy-Item "LICENSE" -Destination "release\" -ErrorAction SilentlyContinue
+
+    - name: Create ZIP archive
+      run: |
+        Compress-Archive -Path "release\*" -DestinationPath "${{ env.PROJECT_NAME }}.zip" -Force
+
+    - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: LifeReaper-portable
-        path: publish/
-        if-no-files-found: error
+        name: ${{ env.PROJECT_NAME }}
+        path: ${{ env.PROJECT_NAME }}.zip
 
-  build-installer:
-    needs: build
-    runs-on: windows-latest
-    
-    steps:
-    - name: 检出代码
-      uses: actions/checkout@v4
-
-    - name: 下载发布文件
-      uses: actions/download-artifact@v4
-      with:
-        name: LifeReaper-portable
-        path: publish
-
-    - name: 安装 Inno Setup
+    - name: Get version from tag
+      if: startsWith(github.ref, 'refs/tags/')
+      id: get_version
       run: |
-        choco install innosetup --no-progress --yes
-        RefreshEnv
+        $version = "${{ github.ref_name }}"
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
 
-    - name: 创建输出目录
-      run: |
-        if (!(Test-Path "installer\output")) {
-          New-Item -ItemType Directory -Path "installer\output"
-        }
-
-    - name: 构建安装包
-      run: |
-        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "installer\setup.iss"
-
-    - name: 上传安装包
-      uses: actions/upload-artifact@v4
-      with:
-        name: LifeReaper-setup
-        path: installer/output/LifeReaper-Setup.exe
-        if-no-files-found: error
-
-  release:
-    needs: build-installer
-    runs-on: windows-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    
-    steps:
-    - name: 下载发布文件
-      uses: actions/download-artifact@v4
-      with:
-        name: LifeReaper-portable
-        path: LifeReaper-portable
-
-    - name: 下载安装包
-      uses: actions/download-artifact@v4
-      with:
-        name: LifeReaper-setup
-        path: LifeReaper-setup
-
-    - name: 创建压缩包
-      run: |
-        Compress-Archive -Path LifeReaper-portable/* -DestinationPath LifeReaper-portable-x64.zip
-        Copy-Item LifeReaper-setup/LifeReaper-Setup.exe LifeReaper-Setup-x64.exe
-
-    - name: 创建 Release
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: |
-          LifeReaper-portable-x64.zip
-          LifeReaper-Setup-x64.exe
+        files: ${{ env.PROJECT_NAME }}.zip
+        name: Release ${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
         generate_release_notes: true

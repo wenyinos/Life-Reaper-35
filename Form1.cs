@@ -1,3 +1,7 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace Life_Reaper
 {
     public partial class Form1 : Form
@@ -18,7 +22,7 @@ namespace Life_Reaper
             UpdateCountdownDisplay();
         }
 
-        private void TimerCountdown_Tick(object? sender, EventArgs e)
+        private void TimerCountdown_Tick(object sender, EventArgs e)
         {
             if (timeLeft.TotalSeconds > 0)
             {
@@ -54,53 +58,66 @@ namespace Life_Reaper
                 lblCountdown.ForeColor = Color.FromArgb(192, 0, 0);
                 Location = originalLocation;
                 isEmphasized = false;
-                ((System.Windows.Forms.Timer)s!).Stop();
-                ((System.Windows.Forms.Timer)s!).Dispose();
+                ((System.Windows.Forms.Timer)s).Stop();
+                ((System.Windows.Forms.Timer)s).Dispose();
             };
             resetTimer.Start();
         }
 
-        private async void ShakeWindow()
+        private void ShakeWindow()
         {
             int shakeCount = 10;
             int shakeDistance = 15;
             int delay = 50;
+            int currentShake = 0;
 
-            for (int i = 0; i < shakeCount; i++)
+            System.Windows.Forms.Timer shakeTimer = new System.Windows.Forms.Timer();
+            shakeTimer.Interval = delay;
+            shakeTimer.Tick += (s, e) =>
             {
-                int offsetX = (i % 2 == 0) ? shakeDistance : -shakeDistance;
-                Location = new Point(originalLocation.X + offsetX, originalLocation.Y);
-                await Task.Delay(delay);
-            }
+                if (currentShake < shakeCount)
+                {
+                    int offsetX = (currentShake % 2 == 0) ? shakeDistance : -shakeDistance;
+                    Location = new Point(originalLocation.X + offsetX, originalLocation.Y);
+                    currentShake++;
+                }
+                else
+                {
+                    ((System.Windows.Forms.Timer)s).Stop();
+                    ((System.Windows.Forms.Timer)s).Dispose();
+                }
+            };
+            shakeTimer.Start();
         }
 
         private void UpdateCountdownDisplay()
         {
-            lblCountdown.Text = timeLeft.ToString(@"hh\:mm\:ss");
-            lblTimer.Text = $"你的寿命剩余时间：{timeLeft.ToString(@"hh\:mm\:ss")}";
+            string timeStr = timeLeft.Hours.ToString("00") + ":" + timeLeft.Minutes.ToString("00") + ":" + timeLeft.Seconds.ToString("00");
+            lblCountdown.Text = timeStr;
+            lblTimer.Text = "你的寿命剩余时间：" + timeStr;
         }
 
-        private void BtnDecrypt_Click(object? sender, EventArgs e)
+        private void BtnDecrypt_Click(object sender, EventArgs e)
         {
             CustomMessageBox.Show(this, "没有背诵三个代表。请先背诵一遍。", "续命失败");
         }
 
-        private void BtnPay_Click(object? sender, EventArgs e)
+        private void BtnPay_Click(object sender, EventArgs e)
         {
             CustomMessageBox.Show(this, "请问你是否确认续命？\n确认后，点击\"检查续命\"进行验证。", "续命说明");
         }
 
-        private void BtnCheckPayment_Click(object? sender, EventArgs e)
+        private void BtnCheckPayment_Click(object sender, EventArgs e)
         {
             CustomMessageBox.Show(this, "你已成功续命。", "+1s");
         }
 
-        private void BtnMinimize_Click(object? sender, EventArgs e)
+        private void BtnMinimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        private void BtnClose_Click(object? sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             ShowCloseWarning();
         }
@@ -117,7 +134,7 @@ namespace Life_Reaper
             warning.ShowDialog(this);
         }
 
-        private void PanelTitleBar_MouseDown(object? sender, MouseEventArgs e)
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             mouseOffset = new Point(-e.X, -e.Y);
         }

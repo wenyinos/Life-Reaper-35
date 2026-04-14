@@ -1,13 +1,17 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace Life_Reaper
 {
     public class WarningForm : Form
     {
-        private Panel? panelTitleBar;
-        private Label? lblTitle;
-        private Button? btnClose;
-        private Panel? panelContent;
-        private Label? lblWarning;
-        private Button? btnConfirm;
+        private Panel panelTitleBar;
+        private Label lblTitle;
+        private Button btnClose;
+        private Panel panelContent;
+        private Label lblWarning;
+        private Button btnConfirm;
         private Point mouseOffset;
 
         public WarningForm()
@@ -88,7 +92,7 @@ namespace Life_Reaper
             Controls.Add(panelTitleBar);
         }
 
-        private void PanelTitleBar_MouseDown(object? sender, MouseEventArgs e)
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             mouseOffset = new Point(-e.X, -e.Y);
         }
