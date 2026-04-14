@@ -7,30 +7,33 @@
 - ⏰ 9分59秒倒计时器
 - 🎨 复古风格界面设计
 - 🖱️ 支持拖拽移动、始终置顶
-- 📦 便携版/安装包两种发布方式
+- 📦 便携版 ZIP 发布
 
 ## 🚀 快速开始
 
 ### 环境要求
-- .NET 10.0 SDK
-- Windows 系统
+- .NET Framework 3.5
+- Windows 系统 (x86)
 
 ### 运行程序
-```bash
-dotnet run
-```
+直接下载 Release 中的 ZIP 文件，解压后运行 `LifeReaper.exe`。
 
-### 构建安装包
+### 从源码编译
 ```bash
-# 双击运行
-build-installer.bat
+# 使用 MSBuild (需要 Visual Studio 或 .NET Framework SDK)
+msbuild "Life Reaper.csproj" /p:Configuration=Release
 ```
 
 ## 📥 下载
 
-前往 [Releases](https://github.com/wenyinos/Life-Reaper/releases) 下载最新版本:
-- **便携版** - 解压即运行
-- **安装包版** - 完整安装体验
+前往 [Releases](https://github.com/wenyinos/Life-Reaper-35/releases) 下载最新版本:
+- **便携版 ZIP** - 解压后运行 `LifeReaper.exe`
+
+## 🔧 CI/CD
+
+本项目使用 GitHub Actions 自动构建和发布：
+- 每次推送到 main 分支都会触发自动构建
+- 创建 `v*` 格式的 tag (如 `v1.0.0`) 会自动创建 GitHub Release
 
 ## 📄 许可证
 
