@@ -66,6 +66,7 @@ namespace Life_Reaper
             // 
             btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnClose.BackColor = Color.FromArgb(192, 0, 0);
+            btnClose.MouseDown += PanelTitleBar_MouseDown;
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 14F);
@@ -95,6 +96,7 @@ namespace Life_Reaper
             btnMinimize.Text = "─";
             btnMinimize.UseVisualStyleBackColor = false;
             btnMinimize.Click += BtnMinimize_Click;
+            btnMinimize.MouseDown += PanelTitleBar_MouseDown;
             // 
             // lblTitle
             // 
@@ -107,6 +109,7 @@ namespace Life_Reaper
             lblTitle.Size = new Size(173, 31);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "续命 26.08.17";
+            lblTitle.MouseDown += PanelTitleBar_MouseDown;
             // 
             // panelContent
             // 
