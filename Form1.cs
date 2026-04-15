@@ -1,23 +1,11 @@
 using System;
 using System.Drawing;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Life_Reaper
 {
     public partial class Form1 : Form
     {
-        private static Icon LoadIconFromResource()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream("favicon.ico"))
-            {
-                if (stream != null)
-                    return new Icon(stream);
-            }
-            return null;
-        }
         private TimeSpan timeLeft;
         private Point mouseOffset;
         private int secondsElapsed;
@@ -38,7 +26,7 @@ namespace Life_Reaper
         {
             if (timeLeft.TotalSeconds > 0)
             {
-                timeLeft = timeLeft.Add(TimeSpan.FromSeconds(-1));
+                timeLeft = timeLeft.Subtract(TimeSpan.FromSeconds(1));
                 secondsElapsed++;
                 UpdateCountdownDisplay();
 
@@ -62,51 +50,51 @@ namespace Life_Reaper
             lblCountdown.ForeColor = Color.FromArgb(255, 0, 0);
             ShakeWindow();
 
-            System.Windows.Forms.Timer resetTimer = new System.Windows.Forms.Timer();
-            resetTimer.Interval = 1500;
-            resetTimer.Tick += (s, e) =>
+            using (var resetTimer = new System.Windows.Forms.Timer { Interval = 1500 })
             {
-                lblCountdown.Font = new Font("Consolas", 32F, FontStyle.Bold, GraphicsUnit.Point);
-                lblCountdown.ForeColor = Color.FromArgb(192, 0, 0);
-                Location = originalLocation;
-                isEmphasized = false;
-                ((System.Windows.Forms.Timer)s).Stop();
-                ((System.Windows.Forms.Timer)s).Dispose();
-            };
-            resetTimer.Start();
+                resetTimer.Tick += (s, args) =>
+                {
+                    lblCountdown.Font = new Font("Consolas", 32F, FontStyle.Bold, GraphicsUnit.Point);
+                    lblCountdown.ForeColor = Color.FromArgb(192, 0, 0);
+                    Location = originalLocation;
+                    isEmphasized = false;
+                    ((System.Windows.Forms.Timer)s).Stop();
+                };
+                resetTimer.Start();
+            }
         }
 
         private void ShakeWindow()
         {
-            int shakeCount = 10;
-            int shakeDistance = 15;
-            int delay = 50;
+            const int shakeCount = 10;
+            const int shakeDistance = 15;
+            const int delay = 50;
             int currentShake = 0;
 
-            System.Windows.Forms.Timer shakeTimer = new System.Windows.Forms.Timer();
-            shakeTimer.Interval = delay;
-            shakeTimer.Tick += (s, e) =>
+            using (var shakeTimer = new System.Windows.Forms.Timer { Interval = delay })
             {
-                if (currentShake < shakeCount)
+                shakeTimer.Tick += (s, e) =>
                 {
-                    int offsetX = (currentShake % 2 == 0) ? shakeDistance : -shakeDistance;
-                    Location = new Point(originalLocation.X + offsetX, originalLocation.Y);
-                    currentShake++;
-                }
-                else
-                {
-                    ((System.Windows.Forms.Timer)s).Stop();
-                    ((System.Windows.Forms.Timer)s).Dispose();
-                }
-            };
-            shakeTimer.Start();
+                    if (currentShake < shakeCount)
+                    {
+                        int offsetX = (currentShake % 2 == 0) ? shakeDistance : -shakeDistance;
+                        Location = new Point(originalLocation.X + offsetX, originalLocation.Y);
+                        currentShake++;
+                    }
+                    else
+                    {
+                        ((System.Windows.Forms.Timer)s).Stop();
+                    }
+                };
+                shakeTimer.Start();
+            }
         }
 
         private void UpdateCountdownDisplay()
         {
-            string timeStr = timeLeft.Hours.ToString("00") + ":" + timeLeft.Minutes.ToString("00") + ":" + timeLeft.Seconds.ToString("00");
+            string timeStr = $"{timeLeft.Hours:00}:{timeLeft.Minutes:00}:{timeLeft.Seconds:00}";
             lblCountdown.Text = timeStr;
-            lblTimer.Text = "你的寿命剩余时间：" + timeStr;
+            lblTimer.Text = $"你的寿命剩余时间：{timeStr}";
         }
 
         private void BtnDecrypt_Click(object sender, EventArgs e)
